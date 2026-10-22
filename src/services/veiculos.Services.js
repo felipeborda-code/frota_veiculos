@@ -23,7 +23,17 @@ class veiculosService{
             message: "Veiculo deletado com sucesso",
             veiculo:  res.rows[0]
         }
-    }    
+    }  
+    
+      async updatePut(id, data) {
+        const res = await pool.query("UPDATE veiculos SET modelo=$2, marca=$3, ano=$4, placa=$5 WHERE id = $1 RETURNING *", [id, data.modelo, data.marca, data.ano, data.placa])
+        return {
+
+            message: "Veiculo atualizado com sucesso",
+            veiculo:  res.rows[0]
+
+        }
+    }  
 }
 
 export const veiculosServices = new veiculosService()
